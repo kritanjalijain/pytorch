@@ -3241,6 +3241,7 @@ def smooth_l1_loss(
 
     See :class:`~torch.nn.SmoothL1Loss` for details.
     """
+
     if has_torch_function_variadic(input, target):
         return handle_torch_function(
             smooth_l1_loss,
@@ -3318,6 +3319,9 @@ def l1_loss(
 
     See :class:`~torch.nn.L1Loss` for details.
     """
+    if reduction == 'sum':
+        raise ValueError("Reduction mode 'sum' is not supported for l1_loss.")
+    # Existing implementation of the function...
     if has_torch_function_variadic(input, target):
         return handle_torch_function(
             l1_loss, (input, target), input, target, size_average=size_average, reduce=reduce, reduction=reduction
